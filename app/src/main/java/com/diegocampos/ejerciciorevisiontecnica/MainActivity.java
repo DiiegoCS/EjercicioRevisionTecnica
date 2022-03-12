@@ -1,12 +1,15 @@
 package com.diegocampos.ejerciciorevisiontecnica;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -18,6 +21,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout myDrawer;
     NavigationView myNav;
     Toolbar myToolbar;
+
+    ActionBarDrawerToggle toogle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +36,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(myToolbar);
 
         myNav.setNavigationItemSelectedListener(this);
+
+        toogle = setDrawerToogle();
+        myDrawer.addDrawerListener(toogle);
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        toogle.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        toogle.syncState();
+    }
+
+    private ActionBarDrawerToggle setDrawerToogle() {
+        return new ActionBarDrawerToggle(this, myDrawer, myToolbar, R.string.drawer_open, R.string.drawer_close);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (toogle.onOptionsItemSelected(item)){
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
