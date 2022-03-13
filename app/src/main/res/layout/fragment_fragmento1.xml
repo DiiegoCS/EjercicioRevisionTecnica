@@ -9,18 +9,40 @@
     android:orientation="vertical"
     android:layout_margin="10dp">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:text="Ficha de Revisión Técnica"
         android:textAlignment="center"
-        android:textSize="20sp"
+        android:textSize="25sp"
         android:textStyle="bold"
-        android:layout_margin="5dp"/>
+        android:layout_margin="5dp"
+        android:layout_weight="6"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnGuardarFicha"
+            android:layout_width="75dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:keepScreenOn="true"
+            android:src="@android:drawable/ic_menu_save"
+            app:maxImageSize="40dp"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -35,15 +57,32 @@
                 android:ems="10"
                 android:hint="Escriba Código de Ingreso"
                 android:inputType="textPersonName" />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/txtDate"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_margin="5dp"
-                android:ems="10"
-                android:hint="Fecha de Ingreso"
-                android:inputType="date" />
+    <EditText
+        android:id="@+id/txtFecha"
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:layout_margin="5dp"
+        android:layout_weight="2"
+        android:ems="10"
+        android:focusable="false"
+        android:hint="Fecha de Ingreso"
+        android:inputType="date" />
+
+    <Button
+        android:id="@+id/btnFecha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        android:layout_weight="1"
+        android:text="Ingresar\n Fecha" />
+
+</LinearLayout>
 
             <EditText
                 android:id="@+id/txtPatente"
