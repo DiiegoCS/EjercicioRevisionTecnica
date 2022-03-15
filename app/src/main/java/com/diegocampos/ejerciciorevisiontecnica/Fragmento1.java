@@ -3,6 +3,7 @@ package com.diegocampos.ejerciciorevisiontecnica;
 import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -29,6 +30,7 @@ import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.diegocampos.ejerciciorevisiontecnica.databinding.ActivityMainBinding;
@@ -54,8 +56,9 @@ public class Fragmento1 extends Fragment {
 
     Bitmap bitmap;
 
-    int dia, mes, anio;
-    String docu, alin, direcc, freno, llanta, suspen, kitSeg, cinturon, luz, puerta, vidrio, tubEsc, gas;
+    int dia, mes, anio, hora, minuto;
+    String docu, alin, direcc, freno, llanta, suspen, kitSeg, cinturon, luz, puerta, vidrio, tubEsc, gas,
+            imagen1, imagen2, imagen3, imagen4;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,6 +70,12 @@ public class Fragmento1 extends Fragment {
             @Override
             public void onClick(View view) {
                 mostrarFecha();
+            }
+        });
+        x.btnHora.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mostrarHora();
             }
         });
 
@@ -454,13 +463,28 @@ public class Fragmento1 extends Fragment {
         datePickerDialog.show();
     }
 
+    public void mostrarHora(){
+        Calendar c = Calendar.getInstance();
+        hora = c.get(Calendar.HOUR_OF_DAY);
+        minuto = c.get(Calendar.MINUTE);
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int i, int i1) {
+                x.txtHora.setText(i + ":" + i1);
+            }
+        }, hora, minuto, true);
+
+        timePickerDialog.show();
+    }
+
     public void guardar() {
         ConexionBD conexion = new ConexionBD(getContext(), "administracion", null, 1);
         SQLiteDatabase bd = conexion.getWritableDatabase();
 
-
         String codigoIngreso = x.txtCodIngreso.getText().toString();
         String fechaIngreso = x.txtFecha.getText().toString();
+        String horaIngreso = x.txtHora.getText().toString();
         String patente = x.txtPatente.getText().toString();
         String documentacion = docu;
         String direccion = direcc;
@@ -476,13 +500,15 @@ public class Fragmento1 extends Fragment {
         String tuboEscape = tubEsc;
         String gases = gas;
         String observaciones = x.txtComentarios.getText().toString();
-
-
-
+        String imagenRev1 = imagen1;
+        String imagenRev2 = imagen2;
+        String imagenRev3 = imagen3;
+        String imagenRev4 = imagen4;
 
         ContentValues registro =new ContentValues();
         registro.put("codigoIngreso", codigoIngreso);
         registro.put("fechaIngreso", fechaIngreso);
+        registro.put("horaIngreso", horaIngreso);
         registro.put("patente", patente);
         registro.put("documentacion", documentacion);
         registro.put("alineacion", alineacion);
@@ -498,6 +524,10 @@ public class Fragmento1 extends Fragment {
         registro.put("tuboEscape", tuboEscape);
         registro.put("gases", gases);
         registro.put("observaciones", observaciones);
+        registro.put(("imagenRev1"), imagenRev1);
+        registro.put(("imagenRev2"), imagenRev2);
+        registro.put(("imagenRev3"), imagenRev3);
+        registro.put(("imagenRev4"), imagenRev4);
 
 
         bd.insert("registros", null, registro);
@@ -628,6 +658,21 @@ public class Fragmento1 extends Fragment {
                 outputStream = new FileOutputStream(file);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
+            }
+        }
+
+        if(outputStream != null){
+            if(imagen1==null){
+                imagen1= outputStream.toString();
+            }
+            else if (imagen2==null){
+                imagen2 = outputStream.toString();
+            }
+            else if(imagen3==null){
+                imagen3= outputStream.toString();
+            }
+            else if (imagen4==null){
+                imagen4= outputStream.toString();
             }
         }
 

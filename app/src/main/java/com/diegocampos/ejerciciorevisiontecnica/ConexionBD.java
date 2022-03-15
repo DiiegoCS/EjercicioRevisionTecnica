@@ -15,11 +15,11 @@ public class ConexionBD extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase bd) {
-        bd.execSQL("create table registros(codigoIngreso String primary key, fechaIngreso text, " +
+        bd.execSQL("create table registros(codigoIngreso String primary key, fechaIngreso text, horaIngreso text, " +
                 "patente text, documentacion text, direccion text, frenos text, llantas text," +
                 "suspension text, alineacion text, kitSeguridad text, cinturones text," +
                 "luces text, puertas text, vidrios text, tuboEscape text, gases text," +
-                "observaciones text, imagen1 text, imagen2 text, imagen3 text, imagen4 text)");
+                "observaciones text, imagenRev1 text, imagenRev2 text, imagenRev3 text, imagenRev4 text)");
     }
 
     @Override
