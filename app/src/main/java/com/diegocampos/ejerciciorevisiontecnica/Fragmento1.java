@@ -641,6 +641,20 @@ public class Fragmento1 extends Fragment {
                 e.printStackTrace();
             }
 
+            if(imageUri != null){
+                if(imagen1==null){
+                    imagen1= imageUri.toString();
+                }
+                else if (imagen2==null){
+                    imagen2 = imageUri.toString();
+                }
+                else if(imagen3==null){
+                    imagen3= imageUri.toString();
+                }
+                else if (imagen4==null){
+                    imagen4= imageUri.toString();
+                }
+            }
 
             values.clear();
             values.put(MediaStore.Images.Media.IS_PENDING, 0);
@@ -663,18 +677,18 @@ public class Fragmento1 extends Fragment {
             }
         }
 
-        if(outputStream != null){
+        if(file != null){
             if(imagen1==null){
-                imagen1= outputStream.toString();
+                imagen1= file.toString();
             }
             else if (imagen2==null){
-                imagen2 = outputStream.toString();
+                imagen2 = file.toString();
             }
             else if(imagen3==null){
-                imagen3= outputStream.toString();
+                imagen3= file.toString();
             }
             else if (imagen4==null){
-                imagen4= outputStream.toString();
+                imagen4= file.toString();
             }
         }
 

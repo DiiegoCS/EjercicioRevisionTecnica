@@ -1,26 +1,40 @@
 package com.diegocampos.ejerciciorevisiontecnica;
 
+import static android.widget.LinearLayout.VERTICAL;
+
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.diegocampos.ejerciciorevisiontecnica.databinding.FragmentFragmento1Binding;
 import com.diegocampos.ejerciciorevisiontecnica.databinding.FragmentFragmento2Binding;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Fragmento2 extends Fragment {
 
     private FragmentFragmento2Binding x2;
+    AdaptadorDatos adaptador;
+    ArrayList<Bitmap> fotos= new ArrayList<>();
 
     String documentacion2,alin2, direcc2, freno2, llanta2, suspen2, kitSeg2, cinturon2, luz2, puerta2,
-            vidrio2, tubEsc2, gas2;// verImagen1, imagen2, imagen3, imagen4;
+            vidrio2, tubEsc2, gas2;
+    Bitmap verImagen1, verImagen2, verImagen3, verImagen4;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,6 +49,10 @@ public class Fragmento2 extends Fragment {
             }
         });
 
+        adaptador = new AdaptadorDatos(fotos, getContext());
+
+        x2.recyclerFotos.setLayoutManager(new LinearLayoutManager(getContext()));
+        x2.recyclerFotos.setAdapter(adaptador);
 
         return v;
     }
@@ -145,6 +163,22 @@ public class Fragmento2 extends Fragment {
             }
             x2.txtVerComentarios.setText(fila.getString(17));
 
+            verImagen1 = BitmapFactory.decodeFile(fila.getString(18));
+            if(verImagen1!=null){
+                fotos.add(verImagen1);
+            }
+            verImagen2 = BitmapFactory.decodeFile(fila.getString(19));
+            if(verImagen2!=null){
+                fotos.add(verImagen2);
+            }
+            verImagen3 = BitmapFactory.decodeFile(fila.getString(20));
+            if(verImagen3!=null){
+                fotos.add(verImagen3);
+            }
+            verImagen4 = BitmapFactory.decodeFile(fila.getString(21));
+            if(verImagen4!=null){
+                fotos.add(verImagen4);
+            }
 
             bd.close();
             Toast.makeText(getContext(), "Producto encontrado", Toast.LENGTH_SHORT).show();
